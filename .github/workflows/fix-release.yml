@@ -41,6 +41,6 @@ jobs:
           git push origin v${RELEASE_VERSION}_fix${FIX_NUMBER}
       - name: Comment to Issue
         run: |
-          gh issue comment $(gh issue list --search "Release v${RELEASE_VERSION}" --json number --jq '.[0].number') --body "Дата фикса: $(date)\nАвтор: ${{ github.actor }}\nDocker: cr.yandex/${{ env.YC_CR_REGISTRY }}/app:${RELEASE_VERSION}_fix${FIX_NUMBER}"
+          gh issue comment $(gh issue list --search "Release v${RELEASE_VERSION}" --json number --jq '.[0].number') --body "$(printf "Дата фикса: %s\nАвтор: %s\nDocker: cr.yandex/%s/app:%s_fix%s" "$(date)" "${{ github.actor }}" "${{ env.YC_CR_REGISTRY }}" "${RELEASE_VERSION}" "${FIX_NUMBER}")"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
